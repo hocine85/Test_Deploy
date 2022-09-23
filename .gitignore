@@ -1,0 +1,6 @@
+﻿# This file is used to tell the Version Control System (Git) which directories or files to ignore when committig and pushing your project to the remote Repo. 
+# For a full list of file patterns to ignore; see `git help ignore` for more information.
+# Lines that start with '#' are comments.
+
+# the following patter instructs Git to ignore a folder named .local - The '/' is to say include all the sub-directories and files within that folder.
+.local/
