@@ -65,8 +65,9 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
-           
-    publish-uipath-nuget-package:
+
+     # Publish
+  publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
       runs-on: windows-latest
       steps: 
