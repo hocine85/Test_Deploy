@@ -50,13 +50,13 @@ Examples:
 Param (
 
     #Required
-	[string] $packages_path = "", # Required. The path to a folder containing packages, or to a package file.
-	[string] $orchestrator_url = "", #Required. The URL of the Orchestrator instance.
-	[string] $orchestrator_tenant = "", #Required. The tenant of the Orchestrator instance.
+	[string] $packages_path = "Test_Deployment_Process.1.0.1.nupkg", # Required. The path to a folder containing packages, or to a package file.
+	[string] $orchestrator_url = "https://cloud.uipath.com/hocine/Hocine", #Required. The URL of the Orchestrator instance.
+	[string] $orchestrator_tenant = "Hocine", #Required. The tenant of the Orchestrator instance.
 
     #cloud - Required
-    [string] $UserKey = "", #Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
-    [string] $account_name = "", #Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
+    [string] $UserKey = "BDIitfO9SaN3JZ58TivWiPPuIZLJVXJLgQzldTJA3Jidb", #Required. The Orchestrator OAuth2 refresh token used for authentication. Must be used together with the account name and client id.
+    [string] $account_name = "hocine", #Required. The Orchestrator CloudRPA account name. Must be used together with the refresh token and client id.
 
     #On prem - Required
     [string] $orchestrator_user = "", #Required. The Orchestrator username used for authentication. Must be used together with the password.
