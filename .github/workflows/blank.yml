@@ -20,7 +20,7 @@ env:
   ORCH_URL: https://cloud.uipath.com/hocine/Hocine
   ORCH_TENANT: "Hocine"
   ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
-  ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
+  ORCH_USER_KEY: ${{ secrets.UIPATHUSERKEY }}
   ORCH_ACC_NAME: hocine
   Package_Name: Test_Deployment_Process.1.0.1.nupkg
 
