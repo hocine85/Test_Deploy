@@ -1,14 +1,13 @@
-# 
 name: Development workflow
 
 on:
   push:
     branches:
-      - Master
+      - develop
 
 # Here the environment variable is declared in workflow level
 env:
-  # Replace with your Orchestrator Values
+  # Replace with your Orchestrator Values 
   PROJECT_NAME: Test_Deployment_Process
   PROJECT_FOLDER: ${{ github.action_path }}
   ORCH_URL: https://cloud.uipath.com/hocine/Hocine
@@ -40,13 +39,14 @@ jobs:
         run: |
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
+
   build-uipath-nuget-package:
-   # You should be able to run on windows 2019 or windows latest
+    # You should be able to run on windows 2019 or windows latest
     needs: cleaner
     runs-on: windows-latest
-    steps:
+    steps: 
       - name: Check out repository code
-   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
       - name: Build Nuget Package
         shell: pwsh
@@ -61,7 +61,7 @@ jobs:
   publish-uipath-nuget-package:
     needs: build-uipath-nuget-package
     runs-on: windows-latest
-    steps:
+    steps: 
       - name: Download UiPath Artifacts
         uses: actions/download-artifact@v2
         with:
