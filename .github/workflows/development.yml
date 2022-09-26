@@ -51,21 +51,21 @@ jobs:
       - name: Build Nuget Package
         shell: pwsh
         run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
-   #   - name: Upload UiPath Artifacts
-   #     uses: actions/upload-artifact@v2
-   #     with:
-   #       name: Artifacts
-  #        path: |
-   #        package/*.*
-   #        scripts/*.ps1
+      - name: Upload UiPath Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: |
+           package/*.*
+           scripts/*.ps1
   publish-uipath-nuget-package:
     needs: build-uipath-nuget-package
     runs-on: windows-latest
     steps:
-    #  - name: Download UiPath Artifacts
-    #    uses: actions/download-artifact@v2
-   #     with:
-   #       name: Artifacts
+      - name: Download UiPath Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Artifacts
       - name: Publish Nuget Package to DEV
         shell: pwsh
         run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package\
