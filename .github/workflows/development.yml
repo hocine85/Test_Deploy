@@ -48,9 +48,9 @@ jobs:
       - name: Check out repository code
    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
-   #   - name: Build Nuget Package
-   #     shell: pwsh
-   #     run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
+      - name: Build Nuget Package
+        shell: pwsh
+        run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
    #   - name: Upload UiPath Artifacts
    #     uses: actions/upload-artifact@v2
    #     with:
