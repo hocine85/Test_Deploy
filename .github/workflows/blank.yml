@@ -54,7 +54,7 @@ jobs:
       - name: print-on-screen
         run: |
           echo "Bluidling Package...: "
-            - name: Check out repository code
+      - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
       - name: Build Nuget Package
