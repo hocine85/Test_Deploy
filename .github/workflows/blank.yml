@@ -26,18 +26,20 @@ on:
 
 jobs:
   Assign-Secrets-to-env-variables:
-      environment: Prod
-      runs-on: ubuntu-latest
-      env:
-      # Replace with your Orchestrator Values 
-        PROJECT_NAME: Test_Deployment_Process
-        PROJECT_FOLDER: ${{ github.action_path }}
-        ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
-        ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
-        ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
-        ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
-        ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
-        Package_Name: Test_Deployment_Process.1.0.1.nupkg
+        runs-on: ubuntu-latest
+        environment: Prod
+        steps:
+          - name: assing-variables
+            env:
+            # Replace with your Orchestrator Values 
+              PROJECT_NAME: Test_Deployment_Process
+              PROJECT_FOLDER: ${{ github.action_path }}
+              ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
+              ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
+              ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
+              ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
+              ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
+              Package_Name: Test_Deployment_Process.1.0.1.nupkg
   
   print-details:
     runs-on: ubuntu-latest
