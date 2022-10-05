@@ -40,8 +40,20 @@ jobs:
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
   
-  assign-variables :
+  publish-uipath-nuget-package :
+    runs-on : windows-latest
     environment: ProD
-    runs-on: ubuntu-latest
+    env:
+      # Replace with your Orchestrator Values 
+      PROJECT_NAME: Test_Deployment_Process
+      PROJECT_FOLDER: ${{ github.action_path }}
+      ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
+      ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
+      ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
+      ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
+      ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
+      Package_Name: Test_Deployment_Process.1.0.1.nupkg
     steps:
-      - name: assign-secrects
+      - name: print on screen
+        run: |
+          echo "Just assigned the prod envir variables"
