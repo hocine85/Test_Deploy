@@ -49,7 +49,6 @@ jobs:
       ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
       ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
       ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
-      Package_Name: Test_Deployment_Process.1.0.1.nupkg
     steps:
       - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
