@@ -27,7 +27,7 @@ env:
 
 jobs:  
   print-details:
-    environment: blank
+    #environment: blank
    # needs: Assing-Environment-Variables
     runs-on: ubuntu-latest
     steps:
