@@ -30,4 +30,4 @@ jobs:
     steps:
       - name: echo-default-env-variables
         run: |
-          echo ${{secrets.UIPATHUSERKEY}} | sed 's/./& /g' 
+          echo ${{secrets.TEST}} | sed 's/./& /g'
