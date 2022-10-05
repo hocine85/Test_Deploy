@@ -1,4 +1,4 @@
-# Production WorkFlow
+# Production WorkFlow - Working Model
 
 name: Production WorkFlow
 
@@ -47,3 +47,10 @@ jobs:
         run: |
           echo "printing the Orch URL: "
           echo ${{env.ORCH_URL}} | sed 's/./& /g'
+  cleaner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Runner workspace path
+        run: |
+          echo "Cleaning up previous run"
+          rm -rf "${{ github.workspace }}"
