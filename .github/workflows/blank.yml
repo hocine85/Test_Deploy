@@ -63,7 +63,7 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
-       
+
        # Publish
   publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
