@@ -10,27 +10,22 @@ on:
   pull_request:
     branches: [ "Master" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+# Allows you to run this workflow manually from the Actions tab
+#workflow_dispatch:
+env:         
+     # Replace with your Orchestrator Values 
+  PROJECT_NAME: Test_Deployment_Process
+  PROJECT_FOLDER: ${{ github.action_path }}
+  ORCH_URL: https://cloud.uipath.com/hocine/Hocine
+  ORCH_TENANT: "Hocine"
+  ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
+  ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
+  ORCH_ACC_NAME: hocine
+  Package_Name: Test_Deployment_Process.1.0.1.nupkg
 
-jobs:
-  Assing-Environment-Variables:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Assign-env-variables-from-Secrets
-        env:         
-          # Replace with your Orchestrator Values 
-          PROJECT_NAME: Test_Deployment_Process
-          PROJECT_FOLDER: ${{ github.action_path }}
-          ORCH_URL: https://cloud.uipath.com/hocine/Hocine
-          ORCH_TENANT: "Hocine"
-          ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
-          ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
-          ORCH_ACC_NAME: hocine
-          Package_Name: Test_Deployment_Process.1.0.1.nupkg
-
+jobs:  
   print-details:
-    needs: Assing-Environment-Variables
+   # needs: Assing-Environment-Variables
     runs-on: ubuntu-latest
     steps:
       - name: echo-default-env-variables
