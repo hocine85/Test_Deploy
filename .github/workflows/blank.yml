@@ -22,6 +22,7 @@ env:
   ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
   ORCH_ACC_NAME: hocine
   Package_Name: Test_Deployment_Process.1.0.1.nupkg
+  test_Secret: ${{ secrets.UIPATHUSERKEY }}
 
 jobs:  
   print-details:
@@ -39,4 +40,5 @@ jobs:
           echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
-          echo ${{env.project_name}}
+      - name: print-a-secret-value
+        run: echo env.project_name
