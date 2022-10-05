@@ -40,3 +40,4 @@ jobs:
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
           echo  env.project_name
+          echo env.project_name
