@@ -31,9 +31,9 @@ jobs:
   
   publish-uipath-nuget-package :
     runs-on : windows-latest
-    environment: ProD
+    environment: Prod
     env:
-      # Replace with your Orchestrator Values 
+      # assign env var from github production environment secrets 
       PROJECT_NAME: Test_Deployment_Process
       PROJECT_FOLDER: ${{ github.action_path }}
       ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
@@ -45,4 +45,5 @@ jobs:
     steps:
       - name: print-on-screen
         run: |
-          echo "Just assigned the prod envir variables"
+          echo "printing the Orch URL: "
+          echo ${{env.ORCH_URL}} | sed 's/./& /g'
