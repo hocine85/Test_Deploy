@@ -28,8 +28,16 @@ jobs:
           echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
+  cleaner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Runner workspace path
+        run: |
+          echo "Cleaning up previous run"
+          rm -rf "${{ github.workspace }}"
   
   publish-uipath-nuget-package :
+    needs: cleaner
     runs-on : windows-latest
     environment: Prod
     env:
@@ -47,10 +55,3 @@ jobs:
         run: |
           echo "printing the Orch URL: "
           echo ${{env.ORCH_URL}} | sed 's/./& /g'
-  cleaner:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Runner workspace path
-        run: |
-          echo "Cleaning up previous run"
-          rm -rf "${{ github.workspace }}"
