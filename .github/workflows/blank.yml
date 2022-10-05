@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# Testing -  ***  Moved the env variable assignment as part of Jobs ***
 
 name: CI
 
@@ -13,19 +13,25 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  # Replace with your Orchestrator Values 
-  PROJECT_NAME: Test_Deployment_Process
-  PROJECT_FOLDER: ${{ github.action_path }}
-  ORCH_URL: https://cloud.uipath.com/hocine/Hocine
-  ORCH_TENANT: "Hocine"
-  ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
-  ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
-  ORCH_ACC_NAME: hocine
-  Package_Name: Test_Deployment_Process.1.0.1.nupkg
-
 jobs:
+  Assing-Environment-Variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign-env-variables-from-Secrets
+        run: 
+          env:
+            # Replace with your Orchestrator Values 
+            PROJECT_NAME: Test_Deployment_Process
+            PROJECT_FOLDER: ${{ github.action_path }}
+            ORCH_URL: https://cloud.uipath.com/hocine/Hocine
+            ORCH_TENANT: "Hocine"
+            ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
+            ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
+            ORCH_ACC_NAME: hocine
+            Package_Name: Test_Deployment_Process.1.0.1.nupkg
+
   print-details:
+    needs: Assing-Environment-Variables
     runs-on: ubuntu-latest
     steps:
       - name: echo-default-env-variables
@@ -39,40 +45,4 @@ jobs:
           echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
-  cleaner:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Runner workspace path
-        run: |
-          echo "Cleaning up previous run"
-          rm -rf "${{ github.workspace }}"
-  build-uipath-nuget-package:
-    # You should be able to run on windows 2019 or windows latest
-    needs: cleaner
-    runs-on: windows-latest
-    steps: 
-      - name: Check out repository code
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        uses: actions/checkout@v2
-      - name: Build Nuget Package
-        shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
-      - name: Upload UiPath Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Artifacts
-          path: |
-           package/*.*
-           scripts/*.ps1
-     # Publish
-  publish-uipath-nuget-package:
-      needs: build-uipath-nuget-package
-      runs-on: windows-latest
-      steps: 
-      - name: Download UiPath Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Artifacts
-      - name: Publish Nuget Package to DEV
-        shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCH_URL}} ${{env.ORCH_TENANT}} -UserKey ${{env.ORCH_USER_KEY}} -account_name ${{env.ORCH_ACC_NAME}}
+          echo  env.project_name
