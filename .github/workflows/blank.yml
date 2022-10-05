@@ -12,7 +12,7 @@ on:
 
 # Allows you to run this workflow manually from the Actions tab
 #workflow_dispatch:
-env:         
+env:
      # Replace with your Orchestrator Values 
   PROJECT_NAME: Test_Deployment_Process
   PROJECT_FOLDER: ${{ github.action_path }}
@@ -22,12 +22,18 @@ env:
   ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
   ORCH_ACC_NAME: hocine
   Package_Name: Test_Deployment_Process.1.0.1.nupkg
+  myTest: ${{secrets.TEST}}
+  myUiPathKey: ${{secrets.UIPATHUSERKEY}}
 
 jobs:  
   print-details:
+    environment: blank
    # needs: Assing-Environment-Variables
     runs-on: ubuntu-latest
     steps:
       - name: echo-default-env-variables
         run: |
-          echo ${{secrets.REPOSECRET}} | sed 's/./& /g'
+         echo "the following is the Test:"
+         echo ${{secrets.TEST}} | sed 's/./& /g'
+         echo "the following is the UiPat Key"
+         echo ${{secrets.UIPATHUSERKEY}} | sed 's/./& /g'
