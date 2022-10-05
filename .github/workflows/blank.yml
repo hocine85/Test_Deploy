@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Assign-env-variables-from-Secrets
         run: 
-          env:
+        env:
             # Replace with your Orchestrator Values 
             PROJECT_NAME: Test_Deployment_Process
             PROJECT_FOLDER: ${{ github.action_path }}
