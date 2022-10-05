@@ -36,7 +36,7 @@ jobs:
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
   
-  publish-uipath-nuget-package :
+  build-uipath-nuget-package :
     needs: cleaner
     runs-on : windows-latest
     environment: Prod
@@ -53,5 +53,17 @@ jobs:
     steps:
       - name: print-on-screen
         run: |
-          echo "printing the Orch URL: "
-          echo ${{env.ORCH_URL}} | sed 's/./& /g'
+          echo "Bluidling Package...: "
+            - name: Check out repository code
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        uses: actions/checkout@v2
+      - name: Build Nuget Package
+        shell: pwsh
+        run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
+      - name: Upload UiPath Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: |
+           package/*.*
+           scripts/*.ps1
