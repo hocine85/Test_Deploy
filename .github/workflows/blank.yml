@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions -- Worked
+# This is a basic workflow to help you get started with Actions
 
 name: CI
 
@@ -18,10 +18,10 @@ env:
   PROJECT_NAME: Test_Deployment_Process
   PROJECT_FOLDER: ${{ github.action_path }}
   ORCH_URL: https://cloud.uipath.com/hocine/Hocine
-  ORCH_TENANT: "Hocine"
-  ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
-  ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
-  ORCH_ACC_NAME: hocine
+  ORCH_TENANT: ${{ secrets.UIPATH_TENANTNAME }}
+  ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENTID }}
+  ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
+  ORCH_ACC_NAME: ${{ secrets.UIPATH_ORGANIZATIONID }}
   Package_Name: Test_Deployment_Process.1.0.1.nupkg
 
 jobs:
@@ -64,15 +64,3 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
-     # Publish
-  publish-uipath-nuget-package:
-      needs: build-uipath-nuget-package
-      runs-on: windows-latest
-      steps: 
-      - name: Download UiPath Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Artifacts
-      - name: Publish Nuget Package to DEV
-        shell: pwsh
-        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCH_URL}} ${{env.ORCH_TENANT}} -UserKey ${{env.ORCH_USER_KEY}} -account_name ${{env.ORCH_ACC_NAME}}
