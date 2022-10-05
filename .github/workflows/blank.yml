@@ -39,3 +39,7 @@ jobs:
           echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
+  
+  assign-variables :
+    runs-on: ubuntu-latest
+    environment: ProD
