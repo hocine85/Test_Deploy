@@ -1,4 +1,4 @@
-# Testing - Moved the env variable assignment as part of Jobs
+# Working WorkFlow *** Keep as back Up*******************
 
 name: CI
 
@@ -11,26 +11,20 @@ on:
     branches: [ "Master" ]
 
   # Allows you to run this workflow manually from the Actions tab
-#  workflow_dispatch:
+  workflow_dispatch:
+
+    environment: blank
+    env:
+        PROJECT_NAME: Test_Deployment_Process
+        PROJECT_FOLDER: ${{ github.action_path }}
+        ORCH_URL: https://cloud.uipath.com/hocine/Hocine
+        ORCH_TENANT: "Hocine"
+        ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
+        ORCH_USER_KEY: ${{ secrets.UIPATHUSERKEY }}
+        ORCH_ACC_NAME: hocine
 
 jobs:
-  Assing-Environment-Variables:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Assign-env-variables-from-Secrets
-        env:
-            # Replace with your Orchestrator Values 
-          PROJECT_NAME: Test_Deployment_Process
-          PROJECT_FOLDER: ${{ github.action_path }}
-          ORCH_URL: https://cloud.uipath.com/hocine/Hocine
-          ORCH_TENANT: "Hocine"
-          ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
-          ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
-          ORCH_ACC_NAME: hocine
-          Package_Name: Test_Deployment_Process.1.0.1.nupkg
-
   print-details:
-    needs: Assing-Environment-Variables
     runs-on: ubuntu-latest
     steps:
       - name: echo-default-env-variables
@@ -44,9 +38,7 @@ jobs:
           echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
-
   cleaner:
-    needs: print-details
     runs-on: ubuntu-latest
     steps:
       - name: Runner workspace path
