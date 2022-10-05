@@ -1,4 +1,4 @@
-# Working WorkFlow *** Keep as back Up*******************
+# This is a basic workflow to help you get started with Actions -- Worked
 
 name: CI
 
@@ -13,15 +13,16 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-    environment: blank
-    env:
-        PROJECT_NAME: Test_Deployment_Process
-        PROJECT_FOLDER: ${{ github.action_path }}
-        ORCH_URL: https://cloud.uipath.com/hocine/Hocine
-        ORCH_TENANT: "Hocine"
-        ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
-        ORCH_USER_KEY: ${{ secrets.UIPATHUSERKEY }}
-        ORCH_ACC_NAME: hocine
+env:
+  # Replace with your Orchestrator Values 
+  PROJECT_NAME: Test_Deployment_Process
+  PROJECT_FOLDER: ${{ github.action_path }}
+  ORCH_URL: https://cloud.uipath.com/hocine/Hocine
+  ORCH_TENANT: "Hocine"
+  ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
+  ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
+  ORCH_ACC_NAME: hocine
+  Package_Name: Test_Deployment_Process.1.0.1.nupkg
 
 jobs:
   print-details:
@@ -45,7 +46,6 @@ jobs:
         run: |
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
-
   build-uipath-nuget-package:
     # You should be able to run on windows 2019 or windows latest
     needs: cleaner
@@ -64,7 +64,6 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
-
      # Publish
   publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
