@@ -51,9 +51,6 @@ jobs:
       ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
       Package_Name: Test_Deployment_Process.1.0.1.nupkg
     steps:
-      - name: print-on-screen
-        run: |
-          echo "Bluidling Package...: "
       - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
@@ -67,3 +64,16 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
+       
+       # Publish
+  publish-uipath-nuget-package:
+      needs: build-uipath-nuget-package
+      runs-on: windows-latest
+      steps: 
+      - name: Download UiPath Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Artifacts
+      - name: Publish Nuget Package to Prod
+        shell: pwsh
+        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCH_URL}} ${{env.ORCH_TENANT}} -UserKey ${{env.ORCH_USER_KEY}} -account_name ${{env.ORCH_ACC_NAME}}
