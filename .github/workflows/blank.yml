@@ -62,7 +62,7 @@ jobs:
       env:
       # assign env var from github production environment secrets 
         #PROJECT_NAME: Test_Deployment_Process
-        PROJECT_FOLDER: ${{ github.action_path }}
+        #PROJECT_FOLDER: ${{ github.action_path }}
         ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
         ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
         ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
