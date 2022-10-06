@@ -1,17 +1,27 @@
-# Production WorkFlow - Working Model
+# This is a basic workflow to help you get started with Actions
 
-name: Production WorkFlow
+name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events on the "main" branch
+  # Triggers the workflow on push or pull request events but only for the "Master" branch
   push:
-    branches: [ "main" ]
+    branches: [ "Master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+env:
+  # Replace with your Orchestrator Values 
+  PROJECT_NAME: Test_Deployment_Process
+  PROJECT_FOLDER: ${{ github.action_path }}
+  ORCH_URL: https://cloud.uipath.com/hocine/Hocine
+  ORCH_TENANT: "Hocine"
+  ORCH_CLIENT_ID: "8DEv1AMNXczW3y4U15LL3jYf62jK93n5"
+  ORCH_USER_KEY: "VXs5mjIF0WIHK-Z5bsakaJwi16cwsR3R12YoSaCrn7FfT"
+  ORCH_ACC_NAME: hocine
 
 jobs:
   print-details:
@@ -35,22 +45,11 @@ jobs:
         run: |
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
-  
-  build-uipath-nuget-package :
+  build-uipath-nuget-package:
+    # You should be able to run on windows 2019 or windows latest
     needs: cleaner
-    runs-on : windows-latest
-    environment: Prod
-    env:
-      # assign env var from github production environment secrets 
-      PROJECT_NAME: Test_Deployment_Process
-      PROJECT_FOLDER: ${{ github.action_path }}
-      ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
-      ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
-      ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
-      #ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
-      ORCH_USER_KEY: "DlYSz_1RgaVi94m3JGIi4xVFWUJzU_3FXl-LpjB5n9TNI"
-      ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
-    steps:
+    runs-on: windows-latest
+    steps: 
       - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
@@ -64,7 +63,6 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
-
      # Publish
   publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
