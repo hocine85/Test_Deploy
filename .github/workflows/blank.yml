@@ -66,8 +66,8 @@ jobs:
         ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
         ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
         ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
-        #ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
-        ORCH_USER_KEY: "DlYSz_1RgaVi94m3JGIi4xVFWUJzU_3FXl-LpjB5n9TNI"
+        ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
+        #ORCH_USER_KEY: "DlYSz_1RgaVi94m3JGIi4xVFWUJzU_3FXl-LpjB5n9TNI"
         ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
       steps: 
       - name: Download UiPath Artifacts
