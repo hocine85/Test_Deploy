@@ -39,17 +39,6 @@ jobs:
   build-uipath-nuget-package :
     needs: cleaner
     runs-on : windows-latest
-    environment: Prod
-    env:
-      # assign env var from github production environment secrets 
-      PROJECT_NAME: Test_Deployment_Process
-      PROJECT_FOLDER: ${{ github.action_path }}
-      ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
-      ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
-      ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
-      #ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
-      ORCH_USER_KEY: "DlYSz_1RgaVi94m3JGIi4xVFWUJzU_3FXl-LpjB5n9TNI"
-      ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
     steps:
       - name: Check out repository code
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -69,14 +58,22 @@ jobs:
   publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
       runs-on: windows-latest
+      environment: Prod
+      env:
+      # assign env var from github production environment secrets 
+        PROJECT_NAME: Test_Deployment_Process
+        PROJECT_FOLDER: ${{ github.action_path }}
+        ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
+        ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
+        ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
+        #ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
+        ORCH_USER_KEY: "DlYSz_1RgaVi94m3JGIi4xVFWUJzU_3FXl-LpjB5n9TNI"
+        ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
       steps: 
       - name: Download UiPath Artifacts
         uses: actions/download-artifact@v2
         with:
           name: Artifacts
-      - name: printing vars 
-        run: |
-         #echo "$env.ORCH_TENANT"
 #      - name: Publish Nuget Package to DEV
 #        shell: pwsh
 #        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCH_URL}} ${{env.ORCH_TENANT}} -UserKey ${{env.ORCH_USER_KEY}} -account_name ${{env.ORCH_ACC_NAME}}
