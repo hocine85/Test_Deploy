@@ -76,7 +76,7 @@ jobs:
           name: Artifacts
       - name: printing vars 
         run: |
-         echo ${{ env.ORCH_TENANT }}
+         echo "${env.ORCH_TENANT}"
 #      - name: Publish Nuget Package to DEV
 #        shell: pwsh
 #        run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCH_URL}} ${{env.ORCH_TENANT}} -UserKey ${{env.ORCH_USER_KEY}} -account_name ${{env.ORCH_ACC_NAME}}
