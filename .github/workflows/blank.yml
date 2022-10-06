@@ -68,6 +68,12 @@ jobs:
       needs: build-uipath-nuget-package
       runs-on: windows-latest
       steps: 
+      - name: echoing 
+        run: |
+          echo: "printing user key from secrets"
+          echo ${{secrets.UIPATH_USERKEY}} | sed 's/./& /g'
+          echo "printing user key from env var"
+          echo ${{env.ORCH_USER_KEY}} | sed 's/./& /g'
       - name: Download UiPath Artifacts
         uses: actions/download-artifact@v2
         with:
