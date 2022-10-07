@@ -47,6 +47,7 @@ jobs:
         shell: pwsh
         #packs the checked out repo into a nuget package
         run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
+        # Saving Artifacts
       - name: Upload UiPath Artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -54,6 +55,11 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
+      #download the artifacts
+      - name: Download UiPath Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Artifacts
 
      # Publish
   publish-uipath-nuget-package:
@@ -62,17 +68,13 @@ jobs:
       # points to the prod environment within github actions
       environment: Prod
       env:
-      # assign env var from github production environment secrets 
+      # assign env variable from github production environment secrets
         ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
         ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
         ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
         ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
         ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
       steps: 
-      - name: Download UiPath Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Artifacts
       - name: Publish Nuget Package to Production
         shell: pwsh
         #deploy the previously packed nuget package.
