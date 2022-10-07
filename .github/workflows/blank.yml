@@ -1,4 +1,4 @@
-# Production WorkFlow - Working Model - ***   publish-uipath-nuget-package: causing issues with UserKey ****
+# Working WorkFlow - using environment secrets - notice secrets are retrieved under the [publish-uipath-nuget-package] Job
 
 name: Production WorkFlow
 
@@ -41,10 +41,11 @@ jobs:
     runs-on : windows-latest
     steps:
       - name: Check out repository code
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        # Checks-out the repository under $GITHUB_WORKSPACE
         uses: actions/checkout@v2
       - name: Build Nuget Package
         shell: pwsh
+        #packs the checked out repo into a nuget package
         run: ${{ github.workspace }}\scripts\UiPathPack.ps1 ${{ github.workspace }}\project.json -destination_folder ${{ github.workspace }}\package
       - name: Upload UiPath Artifacts
         uses: actions/upload-artifact@v2
@@ -58,11 +59,10 @@ jobs:
   publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
       runs-on: windows-latest
+      # points to the prod environment within github actions
       environment: Prod
       env:
       # assign env var from github production environment secrets 
-        #PROJECT_NAME: Test_Deployment_Process
-        #PROJECT_FOLDER: ${{ github.action_path }}
         ORCH_URL: ${{ secrets.UIPATH_ORCHESTRATOR_URL }}
         ORCH_TENANT: ${{ secrets.UIPATH_ORCHESTRATOR_TENANT }}
         ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
@@ -73,6 +73,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: Artifacts
-      - name: Publish Nuget Package to DEV
+      - name: Publish Nuget Package to Production
         shell: pwsh
+        #deploy the previously packed nuget package.
         run: ${{ github.workspace }}\scripts\UiPathDeploy.ps1 ${{ github.workspace }}\package ${{env.ORCH_URL}} ${{env.ORCH_TENANT}} -UserKey ${{env.ORCH_USER_KEY}} -account_name ${{env.ORCH_ACC_NAME}}
