@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "Cleaning up previous run"
           rm -rf "${{ github.workspace }}"
-  
+  # Build Package
   build-uipath-nuget-package :
     needs: cleaner
     runs-on : windows-latest
@@ -55,13 +55,7 @@ jobs:
           path: |
            package/*.*
            scripts/*.ps1
-      #download the artifacts
-      - name: Download UiPath Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Artifacts
-
-     # Publish
+      # Publish
   publish-uipath-nuget-package:
       needs: build-uipath-nuget-package
       runs-on: windows-latest
@@ -74,7 +68,12 @@ jobs:
         ORCH_CLIENT_ID: ${{ secrets.UIPATH_CLIENT_ID }}
         ORCH_USER_KEY: ${{ secrets.UIPATH_USERKEY }}
         ORCH_ACC_NAME: ${{ secrets.UIPATH_ORCHESTRATOR_ACCOUNT_NAME }}
-      steps: 
+      steps:
+           #download the artifacts
+      - name: Download UiPath Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Artifacts
       - name: Publish Nuget Package to Production
         shell: pwsh
         #deploy the previously packed nuget package.
