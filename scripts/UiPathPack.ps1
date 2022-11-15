@@ -108,7 +108,8 @@ if (-not(Test-Path -Path $uipathCLI -PathType Leaf)) {
     WriteLog "UiPath CLI does not exist in this folder. Attempting to download it..."
     try {
         New-Item -Path "$scriptPath" -ItemType "directory" -Name "uipathcli";
-        Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7802.11617" -OutFile "$scriptPath\\uipathcli\\cli.zip";
+        #Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7802.11617" -OutFile "$scriptPath\\uipathcli\\cli.zip";
+        Invoke-WebRequest "https://github.com/hocine85/Scripts/blob/main/CLI/UiPath.CLI.1.0.7985.19721.nupkg?raw=true" -OutFile "$scriptPath\\uipathcli\\cli.zip";
         Expand-Archive -LiteralPath "$scriptPath\\uipathcli\\cli.zip" -DestinationPath "$scriptPath\\uipathcli";
         WriteLog "UiPath CLI is downloaded and extracted in folder $scriptPath\\uipathcli"
         if (-not(Test-Path -Path $uipathCLI -PathType Leaf)) {
