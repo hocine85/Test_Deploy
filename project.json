@@ -1,5 +1,5 @@
 {
-  "name": "Test_Deployment_Process",
+  "name": "Test_Deploy",
   "description": "Blank Process",
   "main": "Main.xaml",
   "dependencies": {
@@ -12,7 +12,7 @@
   "entitiesStores": [],
   "schemaVersion": "4.0",
   "studioVersion": "21.10.7.0",
-  "projectVersion": "1.0.14",
+  "projectVersion": "1.0.15",
   "runtimeOptions": {
     "autoDispose": false,
     "netFrameworkLazyLoading": false,
